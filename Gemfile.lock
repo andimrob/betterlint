@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    betterlint (1.24.0)
+    betterlint (1.25.0)
       rubocop (~> 1.71)
       rubocop-graphql (~> 1.5)
       rubocop-performance (~> 1.23)
@@ -199,6 +199,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
+  arm64-darwin-24
   x86_64-darwin-22
   x86_64-linux
 
@@ -215,4 +216,4 @@ DEPENDENCIES
   zeitwerk (~> 2.6.18)
 
 BUNDLED WITH
-   2.4.22
+   2.7.2
