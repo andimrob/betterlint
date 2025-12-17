@@ -2,11 +2,16 @@
 
 require:
   - rubocop/cop/betterment.rb
+
+plugins:
+  - rubocop-capybara
+  - rubocop-factory_bot
   - rubocop-graphql
   - rubocop-performance
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   DisplayCopNames: true
@@ -42,10 +47,9 @@ Betterment/DynamicParams:
 
 Betterment/EnvironmentConfiguration:
   StyleGuide: '#bettermentenvironmentconfiguration'
-  Exclude:
-    - config/**/*.rb
-    - spec/**/*.rb
-    - test/**/*.rb
+  Include:
+    - app/**/*.rb
+    - lib/**/*.rb
 
 Betterment/HardcodedID:
   AutoCorrect: false
@@ -254,7 +258,7 @@ Metrics/PerceivedComplexity:
 Naming/HeredocDelimiterNaming:
   Enabled: false
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   ForbiddenPrefixes:
     - is_
   NamePrefix:
@@ -267,9 +271,6 @@ Performance/RedundantMatch:
   Enabled: false
 
 RSpec/BeEq:
-  Enabled: false
-
-RSpec/Capybara/FeatureMethods:
   Enabled: false
 
 RSpec/ContextWording:
@@ -303,7 +304,7 @@ RSpec/ExpectChange:
   EnforcedStyle: block
 
 RSpec/SpecFilePathSuffix:
-  Enabled: false
+  Enabled: true
 
 RSpec/SpecFilePathFormat:
   Enabled: false
