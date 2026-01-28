@@ -106,4 +106,43 @@ describe RuboCop::Cop::Betterment::NonNamespacedClass, :config do
       end
     RUBY
   end
+
+  it 'does not report allowed classes' do
+    temp = cop.allowed_classes
+    cop.allowed_classes = [:Foo]
+
+    expect_no_offenses(<<~RUBY)
+      class Foo
+      end
+    RUBY
+  ensure
+    cop.allowed_classes = temp
+  end
+
+  it 'still reports non-allowed classes when some are allowed' do
+    temp = cop.allowed_classes
+    cop.allowed_classes = [:Foo]
+
+    expect_offense(<<~RUBY)
+      class Bar
+      ^^^^^^^^^ #{msg}
+      end
+    RUBY
+  ensure
+    cop.allowed_classes = temp
+  end
+
+  it 'does not report allowed class or its nested classes' do
+    temp = cop.allowed_classes
+    cop.allowed_classes = [:Outer]
+
+    expect_no_offenses(<<~RUBY)
+      class Outer
+        class Inner
+        end
+      end
+    RUBY
+  ensure
+    cop.allowed_classes = temp
+  end
 end
