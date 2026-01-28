@@ -28,7 +28,11 @@ module RuboCop
 
           class_name = class_name_node.short_name
 
-          if class_name_node.const_type? && !namespaced?(class_name_node) && !inside_namespace?(node) && !allowed_classes.include?(class_name)
+          if class_name_node.const_type? &&
+              !namespaced?(class_name_node) &&
+              !inside_namespace?(node) &&
+              !allowed_classes.include?(class_name)
+
             add_offense(node)
           end
         end
