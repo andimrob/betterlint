@@ -6,10 +6,13 @@ module RuboCop
       class NonNamespacedClass < Base
         attr_accessor :allowed_classes
 
-        MSG = <<~TEXT.gsub(/\s+/, " ").strip
+        MSG = <<~TEXT
           Do not add new classes that are not namespaced underneath another constant.
           Classes should be defined within a module namespace (e.g., `module MyNamespace; class Foo; end; end`)
           or use the `::` syntax (e.g., `class MyNamespace::Foo`).
+
+          See here for more information on this cop:
+          https://github.com/Betterment/betterlint/blob/main/README.md#bettermentnonamespacedclass
         TEXT
 
         def initialize(config = nil, options = nil)

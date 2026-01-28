@@ -3,13 +3,7 @@
 require 'spec_helper'
 
 describe RuboCop::Cop::Betterment::NonNamespacedClass, :config do
-  let(:msg) do
-    <<~MSG.tr("\n", " ").strip
-      Do not add new classes that are not namespaced underneath another constant.
-      Classes should be defined within a module namespace (e.g., `module MyNamespace; class Foo; end; end`)
-      or use the `::` syntax (e.g., `class MyNamespace::Foo`).
-    MSG
-  end
+  let(:msg) { 'Do not add new classes that are not namespaced [...]' }
 
   it 'reports non-namespaced classes' do
     expect_offense(<<~RUBY)
