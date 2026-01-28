@@ -3,13 +3,7 @@
 require 'spec_helper'
 
 describe RuboCop::Cop::Betterment::NonNamespacedClass, :config do
-  let(:msg) do
-    <<~MSG.tr("\n", " ").strip
-      Do not add new classes that are not namespaced underneath another constant.
-      Classes should be defined within a module namespace (e.g., `module MyNamespace; class Foo; end; end`)
-      or use the `::` syntax (e.g., `class MyNamespace::Foo`).
-    MSG
-  end
+  let(:msg) { 'Do not add new classes that are not namespaced [...]' }
 
   it 'reports non-namespaced classes' do
     expect_offense(<<~RUBY)
@@ -105,5 +99,44 @@ describe RuboCop::Cop::Betterment::NonNamespacedClass, :config do
         end
       end
     RUBY
+  end
+
+  it 'does not report allowed classes' do
+    temp = cop.allowed_classes
+    cop.allowed_classes = [:Foo]
+
+    expect_no_offenses(<<~RUBY)
+      class Foo
+      end
+    RUBY
+  ensure
+    cop.allowed_classes = temp
+  end
+
+  it 'still reports non-allowed classes when some are allowed' do
+    temp = cop.allowed_classes
+    cop.allowed_classes = [:Foo]
+
+    expect_offense(<<~RUBY)
+      class Bar
+      ^^^^^^^^^ #{msg}
+      end
+    RUBY
+  ensure
+    cop.allowed_classes = temp
+  end
+
+  it 'does not report allowed class or its nested classes' do
+    temp = cop.allowed_classes
+    cop.allowed_classes = [:Outer]
+
+    expect_no_offenses(<<~RUBY)
+      class Outer
+        class Inner
+        end
+      end
+    RUBY
+  ensure
+    cop.allowed_classes = temp
   end
 end

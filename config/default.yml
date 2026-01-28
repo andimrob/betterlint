@@ -66,6 +66,7 @@ Betterment/NonNamespacedClass:
   Description: Detects classes that are not namespaced under a module or constant
   StyleGuide: '#bettermentnonamespacedclass'
   Enabled: false
+  AllowedClasses: []
 
 Betterment/NonStandardActions:
   AdditionalAllowedActions: []
